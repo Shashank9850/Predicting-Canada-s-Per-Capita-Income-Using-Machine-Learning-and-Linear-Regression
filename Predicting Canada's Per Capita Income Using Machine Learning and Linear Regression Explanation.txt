@@ -1,0 +1,57 @@
+Step 1: Import Libraries
+
+import pandas as pd
+import numpy as np 
+from sklearn import linear_model 
+import matplotlib.pyplot as plt
+
+pandas: Used for data manipulation and analysis.
+numpy: Used for numerical operations.
+sklearn (scikit-learn): Provides simple and efficient tools for data mining and data analysis; here, we use it for linear regression.
+matplotlib: Used for plotting graphs.
+
+Step 2: Load Data
+
+df = pd.read_csv('D:\canada_per_capita_income.csv')
+df
+pd.read_csv: Reads a CSV file into a DataFrame.
+df: The DataFrame that contains the data from the CSV file.
+
+Step 3: Plot Data
+
+plt.xlabel('year')
+plt.ylabel('per capita income (US$)')
+plt.scatter(df['year'], df['per capita income (US$)'], color='red', marker='*')
+plt.show()
+plt.xlabel and plt.ylabel: Label the x-axis and y-axis.
+plt.scatter: Creates a scatter plot of the data with years on the x-axis and per capita income on the y-axis.
+plt.show: Displays the plot.
+
+Step 4: Prepare Data for Training
+
+new_df = df.drop('per capita income (US$)', axis='columns')
+new_df
+df.drop: Drops the 'per capita income (US$)' column to create a new DataFrame, new_df, that contains only the years.
+axis='columns': Specifies that we are dropping a column, not a row.
+
+Step 5: Extract the Target Variable
+
+per_capita_income_usd = df['per capita income (US$)']
+per_capita_income_usd
+df['per capita income (US$)']: Selects the 'per capita income (US$)' column from the original DataFrame and assigns it to the variable per_capita_income_usd.
+
+Step 6: Create and Train the Linear Regression Model
+
+reg = linear_model.LinearRegression()
+reg.fit(new_df, per_capita_income_usd)
+linear_model.LinearRegression(): Creates a Linear Regression object.
+reg.fit(new_df, per_capita_income_usd): Trains the Linear Regression model using the new_df (years) as the input data (X) and per_capita_income_usd as the target variable (y).
+
+Step 7: Make Predictions
+
+reg.predict([[2020]])
+reg.predict: Uses the trained model to predict the per capita income for the year 2020.
+
+Output
+
+array([41288.69409442])
